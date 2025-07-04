@@ -1,69 +1,153 @@
-# React + TypeScript + Vite
+# 📚 Minimal Library Management System - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean, minimal, and fully responsive **Library Management System** built with **React**, **Redux Toolkit Query**, and **TypeScript**. This client-side application allows users to perform essential book and borrowing operations like viewing, creating, editing, deleting, and borrowing books.
 
-Currently, two official plugins are available:
+> 🔗 [Live Demo](https://library-client-nu.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🌟 Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🔓 Public Access
+- All pages are publicly accessible without login or authentication.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 📘 Book Management
+- **Books List Table**
+  - Columns: Title, Author, Genre, ISBN, Copies, Availability, Actions
+  - Supports: View Details, Edit Book, Delete Book, Borrow Book
+- **Create Book**
+  - Fields: Title, Author, Genre, ISBN, Description, Copies
+  - Auto-sets availability based on copies
+- **Edit Book**
+  - Auto-filled form with existing data
+- **Delete Book**
+  - Confirmation dialog before removal
+- Real-time UI updates after any CRUD operation
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### 📖 Borrow Management
+- **Borrow a Book**
+  - Fields: Quantity (≤ available copies), Due Date
+  - Automatic copy adjustment and availability status update
+  - On success: redirect to borrow summary
+- **Borrow Summary**
+  - Aggregated data for borrowed books
+  - Columns: Book Title, ISBN, Total Quantity Borrowed
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 💻 UI/UX
+- **Responsive Layout** – Adapts across devices
+- **Minimalist Design** – Tailwind CSS + Radix UI + lucide-react icons
+- **Toast Notifications** – Success and error feedback using `sonner`
+- **Type-Safe Forms** – React Hook Form + Zod
+- **Reusable Components** – Modular file structure and UI components
+
+---
+
+## 🚀 Tech Stack
+
+| Layer         | Technology                            |
+|--------------|----------------------------------------|
+| Frontend     | React + TypeScript                     |
+| State Mgmt   | Redux Toolkit + RTK Query              |
+| Styling      | Tailwind CSS + clsx + cva              |
+| Forms        | React Hook Form + Zod                  |
+| UI Components| Radix UI + lucide-react + sonner       |
+| Routing      | React Router v7                        |
+| Utilities    | date-fns, uuid                         |
+
+---
+
+## 📂 Folder Structure (Simplified)
+
+```
+src/
+├── assets/               # Images and static files
+├── components/           # Reusable components
+│   ├── layout/           # Navbar, Footer
+│   ├── module/           # Feature modules (Books, Borrow)
+│   ├── ui/               # Generic UI components
+├── pages/                # Route-based pages
+├── redux/                # RTK Query + Store setup
+├── providers/            # Theme and global providers
+├── routes/               # Route definitions
+├── lib/                  # Utility functions
+└── types.ts              # Type definitions
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📡 Backend API
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+This frontend interacts with a RESTful backend built with:
+- **Node.js**, **Express.js**, **MongoDB**, **Mongoose**
+
+> 🌐 Backend Live: [https://library-server-one.vercel.app/](https://library-server-one.vercel.app/)
+
+---
+
+## 📦 Installation & Setup
+
+1. **Clone the repo**
+```bash
+git clone https://github.com/rahmansadaf46/Level-2-Assignment-4-Frontend.git
+cd Level-2-Assignment-4-Frontend
 ```
+
+2. **Install dependencies**
+```bash
+npm install
+```
+
+3. **Run development server**
+```bash
+npm run dev
+```
+
+> ⚠️ Make sure the backend is running and accessible
+
+---
+
+## ✅ Bonus Implementations
+
+| Feature                  | Status  |
+|--------------------------|---------|
+| Responsive Design        | ✅       |
+| Optimistic UI Updates    | ✅       |
+| Toast Notifications      | ✅       |
+| Type-Safe Forms (Zod)    | ✅       |
+
+---
+
+## 📌 Routes Overview
+
+| Route                  | Description                          |
+|------------------------|--------------------------------------|
+| `/books`               | Book list with actions               |
+| `/create-book`         | Add new book                         |
+| `/books/:id`           | View book details                    |
+| `/edit-book/:id`       | Edit existing book                   |
+| `/borrow/:bookId`      | Borrow a book                        |
+| `/borrow-summary`      | View borrow summary report           |
+
+---
+
+## 👨‍💻 Author
+
+**Md. Sadaf Rahman**  
+Full Stack Developer | [GitHub](https://github.com/rahmansadaf46)
+
+---
+
+## 📜 License
+
+This project is part of a submission for a structured learning assignment. All code is original and plagiarism-free.
+
+---
+
+## 🌐 Useful Links
+
+- 🔗 [Live Client](https://library-client-nu.vercel.app/)
+- 🔗 [Live Server](https://library-server-one.vercel.app/)
+- 💻 [Frontend GitHub Repo](https://github.com/rahmansadaf46/Level-2-Assignment-4-Frontend)
+- 💻 [Backend GitHub Repo](https://github.com/rahmansadaf46/Level-2-Assignment-4-Backend)
+
+---
